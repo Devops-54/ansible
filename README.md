@@ -2,7 +2,6 @@
 
 Ansible is a configuration management tool which works both on push and pull mechanisms
 
-
  ### INVENTORY File
 
  ```
@@ -65,6 +64,7 @@ How do I know, what all are the facts that are collected by ANSIBLE ?
 
     $ ansible -i inventory all -m setup 
 
+```
 ### Ansible-Vault :
 
 This is used encrypt any sort of senstitive content on your playbook
