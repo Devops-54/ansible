@@ -129,6 +129,7 @@ Ansible roles are a way to organize your Ansible code. They are a collection of 
 
 ### Ansible Roles Directory Structure :
 
+```
 
 roles/
     common/               # this hierarchy represents a "role"
