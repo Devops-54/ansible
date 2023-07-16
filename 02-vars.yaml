@@ -13,6 +13,12 @@
       vars:                              # Local Variables 
         URL: task.google.com
 
+    - name: Demo to show Quotes 
+      ansible.builtin.debug:
+        msg: "{{ URL }}"
+
+# CLI Variables > local variables > Global Variables 
+
 
 # If you try to print a variable that is not declared, it will throw an error.
 
