@@ -2,7 +2,6 @@
   hosts: all
   vars:
     URL: play.google.com
-
   tasks: 
     - name: Printing value of the variable 
       ansible.builtin.debug:
