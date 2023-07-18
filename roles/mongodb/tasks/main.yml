@@ -26,7 +26,7 @@
     dest: /tmp 
     remote_src: yes 
 
-- name: Injecting the MongoDB catalogue Schema
+- name: Injecting the MongoDB Catalogue Schema 
   community.mongodb.mongodb_shell:
     file: "/tmp/{{COMPONENT}}-main/catalogue.js"
     idempotent: yes 
