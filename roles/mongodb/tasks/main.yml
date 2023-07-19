@@ -31,7 +31,7 @@
     file: "/tmp/{{COMPONENT}}-main/catalogue.js"
     idempotent: yes 
 
-- name: Injecting the MongoDB user Schema
+- name: Injecting the MongoDB Users Schema
   community.mongodb.mongodb_shell:
     file: "/tmp/{{COMPONENT}}-main/users.js"
     idempotent: yes 
