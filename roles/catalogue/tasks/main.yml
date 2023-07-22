@@ -18,4 +18,4 @@
 
 - name: Generating Artifacts with npm install 
   community.general.npm:
-    path: /home/{{ APPUSER }}/{{ COMPONENT }}/ 
+    path: /home/{{APPUSER}}/{{COMPONENT}}/ 
