@@ -7,6 +7,6 @@
     state: present 
 
 - name: Creating App user
-  ansible.builtin.user: 
-  name: "{{APPUSER}}" 
+  ansible.builtin.user:
+    name: "{{APPUSER}}" 
   comment: Roboshop Application User 
