@@ -15,4 +15,7 @@
   ansible.builtin.include_role:
     name: common
     tasks_from: download
-    
+
+- name: Generating Artifacts with npm install 
+  community.general.npm:
+    path: /home/{{ APPUSER }}/{{ COMPONENT }}/ 
