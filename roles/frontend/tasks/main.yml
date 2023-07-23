@@ -25,9 +25,11 @@
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
   
-  
 - name: Starting nginx 
   ansible.builtin.systemd:
     name: nginx 
     state: started
     enabled: true
+
+- name: Configuring Node Name Repo   
+  ansible.builtin.shell: set-hostname {{COMPONENT}}-{{ENV}}
