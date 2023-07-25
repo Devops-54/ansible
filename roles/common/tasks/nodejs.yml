@@ -8,8 +8,8 @@
 
 - name: Creating App user
   ansible.builtin.user:
-    name: common 
-    comment: create user 
+    name: "{{APPUSER}}" 
+    comment: Roboshop Application User 
 
 - name: Download and extracting {{ COMPONENT }}
   ansible.builtin.include_role:
@@ -18,7 +18,7 @@
 
 - name: Generating Artifacts with npm install 
   community.general.npm:
-    path: /home/{{APPUSER}}/{{COMPONENT}}/
+    path: /home/{{ APPUSER }}/{{ COMPONENT }}/
 
 - name: Copying the systemd file 
   ansible.builtin.template:
