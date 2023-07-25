@@ -9,7 +9,7 @@
 - name: Creating App user
   ansible.builtin.user:
     name: common 
-    comment: Roboshop Application User 
+    comment: create user 
 
 - name: Download and extracting {{ COMPONENT }}
   ansible.builtin.include_role:
