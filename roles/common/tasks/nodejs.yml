@@ -8,7 +8,7 @@
 
 - name: Creating App user
   ansible.builtin.user:
-    name: "{{APPUSER}}" 
+    name: common 
     comment: Roboshop Application User 
 
 - name: Download and extracting {{ COMPONENT }}
