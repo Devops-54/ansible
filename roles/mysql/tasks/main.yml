@@ -3,32 +3,26 @@
     src: mysql.repo 
     dest: /etc/yum.repos.d/mongodb.repo
 
-- name: Installing MongoDB 
+- name: Installing {{COMPONENT}} 
   ansible.builtin.package:
-    name: mongodb-org
+    name: mysql-community-server
     state: present  
 
-- name: Updating the MongoDB Config to be public
-  ansible.builtin.replace:
-    path: /etc/mongod.conf
-    regexp: '127.0.0.1'
-    replace: '0.0.0.0' 
-
-- name: Starting MongoDB 
+- name: Starting {{COMPONENT}} 
   ansible.builtin.systemd:
-    name: mongod 
+    name: mysql-community-server
     state: started
     enabled: true 
 
-- name: Download and extract Mongodb Schema
-  ansible.builtin.include_role:
-    name: common
-    tasks_from: download
+#- name: Download and extract Mongodb Schema
+#  ansible.builtin.include_role:
+#     name: common
+#     tasks_from: download
     
-- name: Injecting the MongoDB Catalogue Schema 
-  community.mongodb.mongodb_shell:
-    file: "/tmp/{{COMPONENT}}-main/{{ item }}.js"
-    idempotent: yes 
-  loop: 
-    - catalogue 
-    - users 
+#- name: Injecting the MongoDB Catalogue Schema 
+#  community.mongodb.mongodb_shell:
+#     file: "/tmp/{{COMPONENT}}-main/{{ item }}.js"
+#     idempotent: yes 
+#   loop: 
+#     - catalogue 
+#     - users 
