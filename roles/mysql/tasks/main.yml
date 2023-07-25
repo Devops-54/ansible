@@ -21,12 +21,14 @@
 
 - name: Grep the password and assign it to a variable  
   ansible.builtin.set_fact: 
-      DEFAULT_PASSWORD: "{{ mysql_pwd_log['content'] | b64decode | regex_findall('.*temporary password.*')| join(' ') |split(' ') }}"  
+      DEFAULT_PASSWORD: "{{ mysql_pwd_log['content'] | b64decode | regex_findall('.*temporary password.*')| join(' ') |split(' ') | last }}"  
 
-- name: Printing the password 
-  ansible.builtin.debug: 
-      msg: "printing the pwdc{{DEFAULT_PASSWORD}} " 
+- name: Reset {{COMPONENT}} Default root password 
+  ansible.builtin.shell: echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Roboshop@1';" | mysql --connect-expired-password -uroot -p"{{DEFAULT_PASSWORD}}"
 
+#- name: Printing the password 
+#  ansible.builtin.debug: 
+#     msg: "printing the pwdc{{DEFAULT_PASSWORD}} " 
 
 - name: Configuring Node Name Repo   
   ansible.builtin.shell: set-hostname {{COMPONENT}}-{{ENV}}
