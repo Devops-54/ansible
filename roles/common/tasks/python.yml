@@ -16,14 +16,27 @@
     name: common
     tasks_from: download
 
-#- name: Generating Artifacts with npm install 
-#   community.general.npm:
-#   path: /home/{{ APPUSER }}/{{ COMPONENT }}/
+- name: Updating the UID in the {{COMPONENT}}.ini file
+  ansible.builtin.lineinfile:
+    path: /etc/selinux/config
+    regexp: '^uid'
+    line: uid = {{OUT.uid}}
 
-#- name: Configuring service 
-# ansible.builtin.include_role:
-#   name: common
-#   tasks_from: config_svc 
+- name: Updating the GID in the {{COMPONENT}}.ini file
+  ansible.builtin.lineinfile:
+    path: /etc/selinux/config
+    regexp: '^gid'
+    line: uid = {{OUT.group}}
 
-#- name: Configuring Node Name Repo   
-#  ansible.builtin.shell: set-hostname {{COMPONENT}}-{{ENV}}
+- name: Installing {{COMPONENT}} dependencies
+  ansible.builtin.pip:
+    requirements: /home/{{APPUSER}}/{{COMPONENT}}/requirements.txt
+    executable: pip3
+
+- name: Configuring service 
+  ansible.builtin.include_role:
+   name: common
+   tasks_from: config_svc 
+
+- name: Configuring Node Name Repo   
+  ansible.builtin.shell: set-hostname {{COMPONENT}}-{{ENV}}
