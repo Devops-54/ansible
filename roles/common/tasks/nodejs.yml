@@ -10,7 +10,7 @@
   ansible.builtin.include_role:
     name: common
     tasks_from: create_user  
-    
+
 - name: Download and extracting {{ COMPONENT }}
   ansible.builtin.include_role:
     name: common
@@ -20,17 +20,10 @@
   community.general.npm:
     path: /home/{{ APPUSER }}/{{ COMPONENT }}/
 
-- name: Copying the systemd file 
-  ansible.builtin.template:
-    src: systemd.service 
-    dest: /etc/systemd/system/{{COMPONENT}}.service
-
-- name: Restarting {{COMPONENT}}
-  ansible.builtin.systemd:
-    name: "{{COMPONENT}}"
-    state: restarted 
-    enabled: true
-    daemon_reload: true 
+- name: Configuring service 
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: config_svc 
 
 - name: Configuring Node Name Repo   
   ansible.builtin.shell: set-hostname {{COMPONENT}}-{{ENV}}
