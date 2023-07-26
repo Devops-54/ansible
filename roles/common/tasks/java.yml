@@ -1,25 +1,23 @@
-- name: Configuring Nodejs Repo for {{COMPONENT}} 
-  ansible.builtin.shell: curl --silent --location https://rpm.nodesource.com/setup_16.x | sudo bash -
-    
-- name: Installing Nodejs on {{COMPONENT}}-{{ENV}} server
+- name: Installing Maven on {{COMPONENT}}-{{ENV}} server
   ansible.builtin.package:
-    name: nodejs 
+    name: maven  
     state: present 
 
 - name: Creating App user 
   ansible.builtin.include_role:
     name: common
     tasks_from: create_user  
-    
+
 - name: Download and extracting {{ COMPONENT }}
   ansible.builtin.include_role:
     name: common
     tasks_from: download
 
-- name: Generating Artifacts with npm install 
-  community.general.npm:
-    path: /home/{{ APPUSER }}/{{ COMPONENT }}/
-
+- name: Generating {{COMPONENT}} artifacts 
+  ansible.builtin.shell: mvn clean package && mv target/{{COMPONENT}}-1.0.jar {{COMPONENT}}.jar
+  args: 
+     chdir: /home/{{APPUSER}}/{{COMPONENT}}/  
+    
 - name: Copying the systemd file 
   ansible.builtin.template:
     src: systemd.service 
