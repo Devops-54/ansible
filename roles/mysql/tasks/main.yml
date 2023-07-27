@@ -14,7 +14,7 @@
     state: started
     enabled: true
 
-  # Rescue and blocks work together ; Tasks in rescue will only be executed if the task in block fails
+# Rescue and blocks work together ; Tasks in rescue will only be executed if the task in block fails
 - name: Validate the default password 
   block: 
     - name: Get MySQL version with non-default credentials
