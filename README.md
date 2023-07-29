@@ -196,8 +196,8 @@ PS :Ensure the node has ansible installed.
 
 ### What is AWX ?
 
+```
 	AWX is a openSource tool more focused on the PUSH Mechanism of ansible. It's a centralized tool to run ansible and the paid version of that is Ansible Tower. 
-
 	Moreover they are not great tools for integration in cloud. AWX is more of a UI.
-    
     Right now we are running playbook from Jenkins, similarly AWX can run the playbook. That's all.
+```
