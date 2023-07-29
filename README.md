@@ -194,7 +194,7 @@ PS :Ensure the node has ansible installed.
 ```
 
 
-What is AWX ?
+### What is AWX ?
 
 	AWX is a openSource tool more focused on the PUSH Mechanism of ansible. It's a centralized tool to run ansible and the paid version of that is Ansible Tower. 
 
