@@ -1,12 +1,13 @@
 pipeline {
     agent any
-     environment {
+    environment {
         SSHCRED         = credentials('SSH_CRED') 
     }
     parameters {
         string(name: 'COMPONENT', defaultValue: 'mongodb' , description: 'enter the name of the component')
     }
     stages {
+
         stage('Ansible Code Scan') {
             steps {
                 sh  "echo Code Scan Completed"
@@ -15,12 +16,13 @@ pipeline {
 
         stage('Ansible Lint Checks') {
             when { branch pattern: "feature-.*", comparator: "REGEXP"}
-            steps {
+            steps {                
                 sh  "echo Lint Checks Completed"
             }
         }
-        
+
         stage('Ansible Dry Run') {
+            when { branch pattern: "PR-.*", comparator: "REGEXP"}
             steps {
                 sh ''' 
                     ansible-playbook robot-dryrun.yaml -e COMPONENT=${COMPONENT} -e ansible_user=centos -e ansible_password=${SSHCRED_PSW} -e ENV=dev
@@ -33,7 +35,8 @@ pipeline {
                  branch 'main'
             }
              steps {
-                sh "echo Merging the feature branch to PROD Branch"
+                 sh "echo Merging the feature branch to PROD Branch"
+
             }
         }
     }
