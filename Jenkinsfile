@@ -1,6 +1,6 @@
 pipeline {
     agent any
-     environment {
+    environment {
         SSHCRED         = credentials('SSH_CRED') 
     }
     parameters {
@@ -9,19 +9,22 @@ pipeline {
     stages {
 
         stage('Ansible Code Scan') {
-            steps {               
+            steps {
                 sh  "echo Code Scan Completed"
             }
         }
 
         stage('Ansible Lint Checks') {
-             when { branch pattern: "feature-.*", comparator: "REGEXP"}
-            steps {
+            when { branch pattern: "feature-.*", comparator: "REGEXP"}
+            steps {          
+                sh "env"
+                sh "echo Running feature brach against the branch whose name is ${GIT_BRANCH}"      
                 sh  "echo Lint Checks Completed"
             }
         }
 
         stage('Ansible Dry Run') {
+            when { branch pattern: "PR-.*", comparator: "REGEXP"}
             steps {
                 sh ''' 
                     ansible-playbook robot-dryrun.yaml -e COMPONENT=${COMPONENT} -e ansible_user=centos -e ansible_password=${SSHCRED_PSW} -e ENV=dev
@@ -29,15 +32,14 @@ pipeline {
             }
         }
 
-        stage('Promoting Code to Prod Branch') { 
-            when {
-                branch 'main'   
-            }            
-            steps {               
-                sh "echo Merging the feature branch to PROD Branch"
+        stage('Promoting Code to Prod Branch') {            
+             when {
+                 branch 'main'
+            }
+             steps {
+                 sh "echo Merging the feature branch to PROD Branch"
 
             }
         }
-
     }
 }
