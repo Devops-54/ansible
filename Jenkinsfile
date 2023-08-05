@@ -42,5 +42,12 @@ pipeline {
 
             }
         }
+        
+        stage('Promoting Code to Prod Branch') {            
+            when { expression { env.TAG_NAME != null } }                 // When the value is null, I don't want to run. This TAG_NAME env variable will only be available, if you rin it against the tag.
+            steps {
+                sh "echo Merging the feature branch to PROD Branch"
+            }
+        }
     }
 }
